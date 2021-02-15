@@ -1,6 +1,9 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 #include <opencv2/core.hpp>
+#include "pybind11_opencv/ndarray_converter.h"
+
+namespace py = pybind11;
 
 int add(int a, int b) {
     return a + b;
@@ -13,8 +16,11 @@ cv::Mat make_array(void) {
 
 
 PYBIND11_MODULE(mod, m) {
+    NDArrayConverter::init_numpy();
     m.doc() = "description of sample module";
     m.def("add", &add, "A function which adds two numbers");
 
-    m.def("make_array", (pybind11::array_t<double>(*)(void))&make_array, "make a new array range 1 to 9");
+    m.def("make_array", &make_array, "make a new array range 1 to 9");
 }
+
+

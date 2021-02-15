@@ -1,6 +1,8 @@
 # pybind-practice
 
 ## 動作方法
+submoduleでopencvのオブジェクトをnumpyに対応させたライブラリを利用しているのでcloneするときは`--recursive`をつけてください
+
 - mod.cppのビルド:`make build`
 - main.pyでmod.cpp内の関数を実行:`make test`
 - 両方実行:`make all` 

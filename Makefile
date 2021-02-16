@@ -1,6 +1,6 @@
 all: build test
 
-pybind_opencv: 
+pybind_opencv: pybind11_opencv/ndarray_converter.cpp
 	g++ -fPIC -c -o pybind_opencv.o pybind11_opencv/ndarray_converter.cpp `pkg-config --cflags --libs opencv4` `python3 -m pybind11 --includes` 
 
 build: pybind_opencv mod.cpp

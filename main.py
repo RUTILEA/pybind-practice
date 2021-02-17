@@ -10,9 +10,9 @@ print(mod.multiply(mod.make_array(), mod.make_array()))
 
 
 def calc():
-    array = np.array([[1,2,3],[4,5,6],[7,8,9]])
+    array = np.array([[1,2,3],[4,5,6],[7,8,9]]).astype(np.float64)
     for i in range(0,int(1e6)):
-        np.linalg.det(array)
+        cv2.determinant(array)
 
 
 start = time.time()

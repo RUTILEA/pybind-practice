@@ -1,27 +1,61 @@
-import mod
 import cv2
+import math
 import time
-import numpy as np
+import mod
 
-print(mod.add(2, 3))
-print(mod.make_array())
+def rotate(angle:float):
+    templateImg = cv2.imread("./images/temp_2.png")
+    targetImg = cv2.imread("./images/group_young_world.png")
 
-print(mod.multiply(mod.make_array(), mod.make_array()))
+    hight = templateImg.shape[0]
+    width = templateImg.shape[1]
+    center = (int(width / 2), int(hight / 2))
+
+    scale = 1.0
+
+    newWidth = int(width * abs(math.cos(angle)) + hight * abs(math.sin(angle)))
+    newHight = int(width * abs(math.sin(angle)) + hight * abs(math.cos(angle)))
+
+    transition = cv2.getRotationMatrix2D(center, angle, scale)
+    resultImg = cv2.warpAffine(templateImg, transition, (newWidth, newHight))
+
+    search = cv2.matchTemplate(targetImg, resultImg, cv2.TM_CCOEFF_NORMED)
+
+    return search
+
+def main():
+    startTime =  time.time()
+
+    maxV_store = 0;
+    for i in range(1, 360):
+        _, maxV, _, maxL = cv2.minMaxLoc(rotate(i))
+
+        if maxV > maxV_store:
+            maxL_store = maxL
+
+    endTime = time.time() - startTime
+    print("python")
+    print("angle:\t{}".format(i))
+    print("x:\t{}".format(maxL_store[0]))
+    print("y:\t{}".format(maxL_store[1]))
+    print("time[s]:{}".format(endTime))
+
+    print("\n")
+
+    print("c++ non threads")
+    startTime = time.time()
+    mod.mod_1thd()
+    endTime = time.time() - startTime
+    print("time[s]:{}".format(endTime))
+
+    print("\n")
+
+    print("c++ 4 threads")
+    startTime = time.time()
+    mod.mod_4thd()
+    endTime = time.time() - startTime
+    print("time[s]:{}".format(endTime))
 
 
-def calc():
-    array = np.array([[1,2,3],[4,5,6],[7,8,9]]).astype(np.float64)
-    for i in range(0,int(1e6)):
-        cv2.determinant(array)
-
-
-start = time.time()
-mod.calc()
-end = time.time()
-print(end - start)
-
-
-start = time.time()
-calc()
-end = time.time()
-print(end - start)
+if __name__ == '__main__':
+    main()

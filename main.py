@@ -13,7 +13,7 @@ def rotate(angle:float):
 
     scale = 1.0
 
-		rad = math.radians(angle)
+    rad = math.radians(angle)
 
     newWidth = int(width * abs(math.cos(rad)) + hight * abs(math.sin(rad)))
     newHight = int(width * abs(math.sin(rad)) + hight * abs(math.cos(rad)))
@@ -26,20 +26,25 @@ def rotate(angle:float):
     return search
 
 def main():
-    startTime =  time.time()
+    print("python")
 
-    maxV_store = 0;
+    startTime =  time.time()
+    maxV_store = 0
+    angle_store = 0
+
     for i in range(1, 360):
         _, maxV, _, maxL = cv2.minMaxLoc(rotate(i))
 
         if maxV > maxV_store:
             maxL_store = maxL
+            angle_store = i
 
-    endTime = time.time() - startTime
-    print("python")
-    print("angle:\t{}".format(i))
+
+    print("angle:\t{}".format(angle_store))
     print("x:\t{}".format(maxL_store[0]))
     print("y:\t{}".format(maxL_store[1]))
+
+    endTime = time.time() - startTime
     print("time[s]:{}".format(endTime))
 
     print("\n")

@@ -13,8 +13,10 @@ def rotate(angle:float):
 
     scale = 1.0
 
-    newWidth = int(width * abs(math.cos(angle)) + hight * abs(math.sin(angle)))
-    newHight = int(width * abs(math.sin(angle)) + hight * abs(math.cos(angle)))
+		rad = math.radians(angle)
+
+    newWidth = int(width * abs(math.cos(rad)) + hight * abs(math.sin(rad)))
+    newHight = int(width * abs(math.sin(rad)) + hight * abs(math.cos(rad)))
 
     transition = cv2.getRotationMatrix2D(center, angle, scale)
     resultImg = cv2.warpAffine(templateImg, transition, (newWidth, newHight))

@@ -80,7 +80,7 @@ void mod_4thd() {
 
     std::thread thd_1(checker, 0, 90, data_pt[0]);
     std::thread thd_2(checker, 90, 180, data_pt[1]);
-    std::thread thd_3(checker, 90, 270, data_pt[2]);
+    std::thread thd_3(checker, 180, 270, data_pt[2]);
     std::thread thd_4(checker, 270, 360, data_pt[3]);
 
     thd_1.join();

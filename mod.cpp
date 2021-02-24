@@ -20,13 +20,13 @@ struct Data {
 //rotate template images
 cv:: Mat rotation(double ang) {
     cv::Mat input_img = cv::imread("./images/temp_2.png");
-    float x = input_img.rows;
-    float y = input_img.cols;
+    float x = input_img.cols;
+    float y = input_img.rows;
     cv::Point2f center = cv::Point2f(x / 2, y / 2);
     cv::Mat rotated_mat = cv::getRotationMatrix2D(center, ang, 1.0);
 
-    double rot_x = input_img.rows * std::abs(std::cos(ang)) + input_img.cols * std::abs(std::sin(ang));
-    double rot_y = input_img.rows * std::abs(std::sin(ang)) + input_img.cols * std::abs(std::cos(ang));
+    double rot_x = x * std::abs(std::cos(ang)) + y * std::abs(std::sin(ang));
+    double rot_y = x * std::abs(std::sin(ang)) + y * std::abs(std::cos(ang));
 
     cv::Mat output_img;
     output_img = cv::Mat::zeros(cv::Size(rot_x, rot_y), input_img.type());
